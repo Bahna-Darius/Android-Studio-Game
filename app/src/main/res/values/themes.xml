@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Brick_Breaker_Ball" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.Brick_Breaker_Ball" parent="Base.Theme.Brick_Breaker_Ball">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>
