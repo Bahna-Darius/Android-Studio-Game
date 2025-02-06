@@ -174,7 +174,7 @@ public class GameView extends View {
                 oldPaddleX = paddleX;
             }
             if (action == MotionEvent.ACTION_MOVE){
-                float shift = oldX = touchX;
+                float shift = oldX - touchX;
                 float newPaddleX = oldPaddleX - shift;
                 if (newPaddleX <= 0)
                     paddleX = 0;
