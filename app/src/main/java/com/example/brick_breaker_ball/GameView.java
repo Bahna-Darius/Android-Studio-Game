@@ -44,7 +44,12 @@ public class GameView extends View {
     public GameView(Context context) {
         super(context);
         this.context = context;
+
         ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+        int scaledWidth = ball.getWidth() / 2;
+        int scaledHeight = ball.getHeight() / 2;
+        ball = Bitmap.createScaledBitmap(ball, scaledWidth, scaledHeight, false);
+
         paddle = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
         handler = new Handler();
         runnable = new Runnable() {
@@ -112,17 +117,24 @@ public class GameView extends View {
                 launchGameOver();
             }
         }
-            if (((ballX + ball.getWidth()) >= paddleX)
-                && (ballX <= paddleX + paddle.getWidth())
-                && (ballY + ball.getHeight() >= paddleY)
-                && (ballY + ball.getHeight() <= paddleY + paddle.getHeight())){
-                    if (mpHit != null){
-                        mpHit.start();
-                    }
-                    velocity.setX(velocity.getX() + 1);
-                    velocity.setY((velocity.getY() + 1) * -1);
+        if (((ballX + ball.getWidth()) >= paddleX) &&
+                (ballX <= paddleX + paddle.getWidth()) &&
+                (ballY + ball.getHeight() >= paddleY) &&
+                (ballY + ball.getHeight() <= paddleY + paddle.getHeight())) {
+
+            if (mpHit != null) {
+                mpHit.start();
             }
-            canvas.drawBitmap(ball, ballX, ballY, null);
+
+            velocity.setX(velocity.getX() + 1);
+
+            if (velocity.getY() > 0) {
+                velocity.setY(-Math.abs(velocity.getY()));
+            } else {
+                velocity.setY(Math.abs(velocity.getY()));
+            }
+        }
+        canvas.drawBitmap(ball, ballX, ballY, null);
             canvas.drawBitmap(paddle, paddleX, paddleY, null);
             for (int i=0; i<numBricks; i++){
                 if (bricks[i].getVisibility()){
